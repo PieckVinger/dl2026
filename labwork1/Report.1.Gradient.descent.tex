@@ -1,0 +1,135 @@
+\documentclass[12pt]{article}
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage[a4paper, margin=1in]{geometry}
+
+\title{Labwork 1: Gradient Descent}
+\author{Nguyen Xuan Vinh}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+
+Gradient Descent is one of the most fundamental optimization algorithms in Machine Learning and Deep Learning. 
+It is used to iteratively minimize a function by updating parameters in the direction opposite to the gradient.
+
+In this labwork, Gradient Descent was implemented from scratch using Python to minimize the following function:
+
+\[
+f(x) = x^2
+\]
+
+The derivative of the function is:
+
+\[
+f'(x) = 2x
+\]
+
+The update rule of Gradient Descent is:
+
+\[
+x_{new} = x - r f'(x)
+\]
+
+where:
+\begin{itemize}
+    \item \(x\) is the current value
+    \item \(r\) is the learning rate
+    \item \(f'(x)\) is the derivative of the function
+\end{itemize}
+
+The objective is to find the minimum value of the function.
+
+\section{Algorithm Implementation}
+
+The algorithm was implemented manually without using any optimization libraries.
+
+The implementation process is summarized as follows:
+
+\begin{enumerate}
+    \item Initialize a starting value \(x\)
+    \item Compute the gradient \(f'(x)\)
+    \item Update \(x\) using the Gradient Descent formula
+    \item Repeat the process for a fixed number of iterations
+    \item Print intermediate results at each iteration
+\end{enumerate}
+
+The Python program contains:
+\begin{itemize}
+    \item A function to compute \(f(x)\)
+    \item A function to compute the derivative \(f'(x)\)
+    \item A Gradient Descent loop for iterative optimization
+\end{itemize}
+
+\section{Experimental Results}
+
+The initial value was set to:
+
+\[
+x = 10
+\]
+
+Different learning rates were tested to analyze their effects on convergence.
+
+\subsection{Learning Rate \(r = 0.1\)}
+
+This learning rate produces stable convergence toward the minimum point. 
+However, the convergence speed is relatively slow because each update step is small.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{ccc}
+\toprule
+Iteration & x & f(x) \\
+\midrule
+0 & 10.0000 & 100.0000 \\
+1 & 8.0000 & 64.0000 \\
+2 & 6.4000 & 40.9600 \\
+3 & 5.1200 & 26.2144 \\
+4 & 4.0960 & 16.7772 \\
+\bottomrule
+\end{tabular}
+\caption{Gradient Descent with learning rate \(r = 0.1\)}
+\end{table}
+
+\subsection{Learning Rate \(r = 0.5\)}
+
+This learning rate converges significantly faster and reaches the minimum efficiently. 
+The updates are larger but still stable.
+
+\subsection{Learning Rate \(r = 1.1\)}
+
+This learning rate is too large and causes unstable behavior. 
+The algorithm overshoots the minimum point repeatedly, leading to divergence and oscillation.
+
+\section{Discussion}
+
+The experiments demonstrate that the learning rate is a critical hyperparameter in Gradient Descent.
+
+\begin{itemize}
+    \item A small learning rate leads to slow but stable convergence.
+    \item A suitable learning rate improves optimization efficiency.
+    \item An excessively large learning rate causes divergence and instability.
+\end{itemize}
+
+Therefore, selecting an appropriate learning rate is important for successful optimization in Machine Learning models.
+
+\section{Conclusion}
+
+In this labwork, Gradient Descent was successfully implemented from scratch to minimize the function:
+
+\[
+f(x) = x^2
+\]
+
+The implementation correctly updates the variable iteratively using the derivative of the function.
+
+The experimental results show that different learning rates strongly affect convergence speed and stability. 
+This labwork provides a practical understanding of how Gradient Descent works in optimization problems.
+
+\end{document}
