@@ -1,0 +1,207 @@
+\documentclass[12pt]{article}
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage[a4paper, margin=1in]{geometry}
+
+\title{Labwork 2: Linear Regression}
+\author{Nguyen Xuan Vinh}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+
+Linear Regression is one of the most fundamental supervised learning algorithms in Machine Learning. 
+It is used to model the relationship between an input variable and an output variable using a linear equation.
+
+In this labwork, Linear Regression was implemented completely from scratch using Gradient Descent optimization without using external Machine Learning libraries.
+
+The objective is to predict house prices based on house size using a linear model.
+
+\section{Mathematical Formulation}
+
+The Linear Regression model is defined as:
+
+\[
+\hat{y} = w_1x + w_0
+\]
+
+where:
+
+\begin{itemize}
+    \item \(x\) is the input feature (house size)
+    \item \(\hat{y}\) is the predicted house price
+    \item \(w_1\) is the weight (slope)
+    \item \(w_0\) is the bias (intercept)
+\end{itemize}
+
+To optimize the parameters, Mean Squared Error (MSE) was used as the loss function:
+
+\[
+MSE = \frac{1}{n}\sum_{i=1}^{n}(y_i - \hat{y}_i)^2
+\]
+
+The gradients of the loss function are:
+
+\[
+\frac{\partial MSE}{\partial w_1}
+=
+\frac{-2}{n}\sum x_i(y_i - \hat{y}_i)
+\]
+
+\[
+\frac{\partial MSE}{\partial w_0}
+=
+\frac{-2}{n}\sum (y_i - \hat{y}_i)
+\]
+
+The Gradient Descent update rules are:
+
+\[
+w_1 = w_1 - r \frac{\partial MSE}{\partial w_1}
+\]
+
+\[
+w_0 = w_0 - r \frac{\partial MSE}{\partial w_0}
+\]
+
+where \(r\) is the learning rate.
+
+\section{Algorithm Implementation}
+
+The algorithm was implemented manually in Python.
+
+The implementation process consists of the following steps:
+
+\begin{enumerate}
+    \item Read training data from the CSV file \texttt{lr.csv}
+    \item Initialize parameters \(w_1\) and \(w_0\)
+    \item Compute predictions using the linear equation
+    \item Compute prediction errors
+    \item Calculate gradients for \(w_1\) and \(w_0\)
+    \item Update parameters using Gradient Descent
+    \item Repeat the process iteratively
+    \item Print intermediate optimization results
+\end{enumerate}
+
+The implementation does not use libraries such as Scikit-learn, TensorFlow, or PyTorch.
+
+\section{Dataset}
+
+The dataset contains house sizes and corresponding house prices.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{cc}
+\toprule
+House Size & House Price \\
+\midrule
+10 & 55 \\
+20 & 80 \\
+40 & 100 \\
+60 & 120 \\
+80 & 150 \\
+\bottomrule
+\end{tabular}
+\caption{Training dataset from lr.csv}
+\end{table}
+
+\section{Experimental Results}
+
+The model was trained using Gradient Descent.
+
+The initial values of the parameters were:
+
+\[
+w_1 = 0,\quad w_0 = 0
+\]
+
+The learning rate used in the main experiment was:
+
+\[
+r = 0.0001
+\]
+
+\subsection{Intermediate Optimization Results}
+
+The following table shows several intermediate training steps produced by the program.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{cccc}
+\toprule
+Iteration & \(w_1\) & \(w_0\) & Loss \\
+\midrule
+0 & 1.0140 & 0.0202 & 11265.0000 \\
+100 & 2.0900 & 0.2981 & 635.4750 \\
+200 & 2.0855 & 0.5559 & 628.8275 \\
+300 & 2.0810 & 0.8123 & 622.2516 \\
+400 & 2.0766 & 1.0673 & 615.7466 \\
+500 & 2.0722 & 1.3209 & 609.3118 \\
+600 & 2.0678 & 1.5732 & 602.9463 \\
+700 & 2.0635 & 1.8241 & 596.6494 \\
+800 & 2.0591 & 2.0736 & 590.4205 \\
+900 & 2.0548 & 2.3218 & 584.2587 \\
+\bottomrule
+\end{tabular}
+\caption{Intermediate Gradient Descent optimization results}
+\end{table}
+
+The final learned parameters are:
+
+\[
+w_1 = 2.0506
+\]
+
+\[
+w_0 = 2.5661
+\]
+
+The loss value continuously decreases during training, showing that Gradient Descent successfully optimizes the Linear Regression model.
+
+\subsection{Effect of Learning Rate}
+
+Different learning rates produce different convergence behaviors.
+
+\begin{itemize}
+    \item Small learning rates produce stable but slow convergence
+    \item Suitable learning rates improve optimization efficiency
+    \item Large learning rates may cause unstable updates and divergence
+\end{itemize}
+
+For this experiment, the learning rate \(r = 0.0001\) provides stable convergence and gradual reduction of the loss function.
+
+\section{Discussion}
+
+The experiments demonstrate that Gradient Descent can effectively optimize the parameters of a Linear Regression model.
+
+As training progresses:
+\begin{itemize}
+    \item The loss value decreases
+    \item The predicted values become more accurate
+    \item The parameters gradually approach optimal values
+\end{itemize}
+
+The learning rate is an important hyperparameter because it directly affects convergence speed and training stability.
+
+\section{Conclusion}
+
+In this labwork, Linear Regression was successfully implemented from scratch using Gradient Descent optimization.
+
+The program:
+\begin{itemize}
+    \item Reads training data from a CSV file
+    \item Predicts house prices using a linear equation
+    \item Optimizes parameters iteratively
+    \item Prints intermediate optimization results
+\end{itemize}
+
+The final experimental results show that Gradient Descent successfully minimizes the prediction error and learns the relationship between house size and house price.
+
+This labwork provides practical understanding of optimization techniques used in Machine Learning and Deep Learning.
+
+\end{document}
