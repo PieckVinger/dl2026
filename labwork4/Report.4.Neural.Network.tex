@@ -1,0 +1,219 @@
+\documentclass[12pt]{article}
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage[a4paper, margin=1in]{geometry}
+
+\title{Labwork 4: Neural Network}
+\author{Nguyen Xuan Vinh}
+\date{May 09, 2026}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+
+Artificial Neural Networks are computational models inspired by biological neural systems. 
+A neural network consists of interconnected neurons organized into multiple layers.
+
+In this labwork, a simple feedforward neural network was implemented completely from scratch using Python and object-oriented programming concepts.
+
+The implementation supports:
+\begin{itemize}
+    \item Configurable network architectures
+    \item Random weight initialization
+    \item Weight initialization from text files
+    \item Feedforward computation
+\end{itemize}
+
+The network was tested using the XOR logical function.
+
+\section{Network Architecture}
+
+The network architecture is defined using a text configuration file.
+
+The file \texttt{network.txt} contains:
+
+\begin{verbatim}
+3
+2
+2
+1
+\end{verbatim}
+
+This configuration represents:
+\begin{itemize}
+    \item 3 layers
+    \item Input layer: 2 neurons
+    \item Hidden layer: 2 neurons
+    \item Output layer: 1 neuron
+\end{itemize}
+
+This structure is commonly used to solve the XOR classification problem.
+
+\section{Object Oriented Design}
+
+The neural network was implemented using object-oriented programming.
+
+Three main classes were designed:
+
+\subsection{Neuron Class}
+
+The \texttt{Neuron} class stores:
+\begin{itemize}
+    \item Weights
+    \item Bias
+    \item Feedforward computation
+\end{itemize}
+
+Each neuron computes a weighted sum of its inputs and applies the sigmoid activation function.
+
+\subsection{Layer Class}
+
+The \texttt{Layer} class contains a list of neurons.
+
+Responsibilities of this class include:
+\begin{itemize}
+    \item Managing neurons inside the layer
+    \item Computing outputs for the entire layer
+\end{itemize}
+
+\subsection{NeuralNetwork Class}
+
+The \texttt{NeuralNetwork} class manages:
+\begin{itemize}
+    \item All layers
+    \item Network initialization
+    \item Loading weights from files
+    \item Feedforward propagation
+\end{itemize}
+
+This object-oriented design improves readability, scalability, and maintainability compared to using only lists or dictionaries.
+
+\section{Feedforward Implementation}
+
+Feedforward propagation computes the output of the network layer by layer.
+
+For each neuron, the weighted sum is calculated as:
+
+\[
+z = \sum_{i=1}^{n} w_i x_i + b
+\]
+
+where:
+\begin{itemize}
+    \item \(w_i\) are weights
+    \item \(x_i\) are inputs
+    \item \(b\) is the bias
+\end{itemize}
+
+The sigmoid activation function is then applied:
+
+\[
+\sigma(z) = \frac{1}{1 + e^{-z}}
+\]
+
+The resulting output becomes the input for the next layer.
+
+The process continues until the output layer is reached.
+
+\section{Weight Initialization}
+
+The implementation supports two initialization methods.
+
+\subsection{Random Initialization}
+
+Weights and biases can be initialized randomly in the interval:
+
+\[
+[0,1]
+\]
+
+using Python's random number generator.
+
+\subsection{Initialization from Text File}
+
+The network also supports loading predefined weights from a text file.
+
+The file \texttt{weights.txt} contains:
+
+\begin{verbatim}
+20 20 -10
+-20 -20 30
+20 20 -30
+\end{verbatim}
+
+These values are commonly used for solving the XOR problem using sigmoid activation functions.
+
+\section{XOR Experiment}
+
+The XOR logical function is a classical problem in neural networks because it is not linearly separable.
+
+The network was tested using four input combinations:
+
+\[
+(0,0), (0,1), (1,0), (1,1)
+\]
+
+\subsection{Experimental Results}
+
+The program produced the following outputs:
+
+\begin{table}[h]
+\centering
+\begin{tabular}{ccc}
+\toprule
+Input & Output & Expected XOR Result \\
+\midrule
+(0,0) & 0.000045 & 0 \\
+(0,1) & 0.999955 & 1 \\
+(1,0) & 0.999955 & 1 \\
+(1,1) & 0.000045 & 0 \\
+\bottomrule
+\end{tabular}
+\caption{XOR neural network outputs}
+\end{table}
+
+The outputs are very close to the expected XOR values.
+
+\section{Discussion}
+
+The experiment demonstrates that a multilayer neural network can solve the XOR problem successfully.
+
+Important observations include:
+\begin{itemize}
+    \item A single-layer perceptron cannot solve XOR
+    \item Hidden layers enable nonlinear decision boundaries
+    \item Feedforward propagation correctly computes outputs through multiple layers
+\end{itemize}
+
+The object-oriented implementation also improves code organization and scalability.
+
+The neural network can easily be extended to:
+\begin{itemize}
+    \item More hidden layers
+    \item More neurons
+    \item Different activation functions
+    \item Training algorithms such as backpropagation
+\end{itemize}
+
+\section{Conclusion}
+
+In this labwork, a feedforward neural network was successfully implemented completely from scratch using Python.
+
+The implementation includes:
+\begin{itemize}
+    \item Configurable network architecture
+    \item Object-oriented design
+    \item Random initialization
+    \item Weight loading from files
+    \item Feedforward computation
+\end{itemize}
+
+The XOR experiment demonstrates that the neural network produces outputs very close to the expected logical XOR behavior.
+
+This labwork provides practical understanding of neural network architecture and feedforward computation, which are fundamental concepts in Deep Learning.
+
+\end{document}
