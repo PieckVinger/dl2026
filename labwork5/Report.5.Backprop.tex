@@ -1,0 +1,360 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{geometry}
+
+\geometry{margin=1in}
+
+\title{Labwork 5: Neural Network with Backpropagation}
+\author{Your Name}
+\date{\today}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+
+\lstset{
+    basicstyle=\ttfamily\small,
+    breaklines=true,
+    frame=single,
+    numbers=left,
+    numberstyle=\tiny\color{codegray},
+    keywordstyle=\color{blue},
+    commentstyle=\color{codegreen},
+    showstringspaces=false
+}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\newpage
+
+% ==================================================
+\section{Introduction}
+
+Artificial Neural Networks (ANNs) are computational models inspired by the human brain. 
+They are widely used in machine learning for solving classification and regression problems.
+
+In this labwork, a neural network was implemented completely from scratch using Python, without using machine learning libraries such as TensorFlow or PyTorch.
+
+The objective of this labwork is:
+\begin{itemize}
+    \item Implement feedforward propagation
+    \item Implement backpropagation
+    \item Implement gradient descent optimization
+    \item Train the network using datasets stored in CSV files
+    \item Evaluate the neural network on different datasets
+\end{itemize}
+
+The experiments were performed on:
+\begin{itemize}
+    \item XOR dataset
+    \item Loan approval dataset
+    \item House price-size dataset
+\end{itemize}
+
+% ==================================================
+\section{Neural Network Architecture}
+
+The neural network is composed of:
+\begin{itemize}
+    \item Input layer
+    \item Hidden layer
+    \item Output layer
+\end{itemize}
+
+Each neuron contains:
+\begin{itemize}
+    \item Weights
+    \item Bias
+    \item Activation function
+\end{itemize}
+
+The sigmoid activation function was used:
+
+\[
+\sigma(x) = \frac{1}{1 + e^{-x}}
+\]
+
+The derivative of sigmoid is:
+
+\[
+\sigma'(x) = \sigma(x)(1 - \sigma(x))
+\]
+
+% ==================================================
+\section{Feedforward Propagation}
+
+During feedforward propagation, the inputs are multiplied by weights and added with biases.
+
+The weighted sum is computed as:
+
+\[
+z = \sum_{i=1}^{n} x_i w_i + b
+\]
+
+Then the sigmoid activation function is applied:
+
+\[
+a = \sigma(z)
+\]
+
+The outputs from one layer become the inputs of the next layer.
+
+% ==================================================
+\section{Backpropagation}
+
+Backpropagation is used to compute gradients and update the weights of the network.
+
+The error of the output layer is:
+
+\[
+Error = Expected - Output
+\]
+
+The delta value for output neurons is:
+
+\[
+\delta = (Expected - Output)\sigma'(Output)
+\]
+
+For hidden layers:
+
+\[
+\delta_j = \sigma'(o_j)\sum_k w_{jk}\delta_k
+\]
+
+Weights are updated using gradient descent:
+
+\[
+w = w + \eta \delta x
+\]
+
+Biases are updated as:
+
+\[
+b = b + \eta \delta
+\]
+
+where:
+\begin{itemize}
+    \item $\eta$ is the learning rate
+    \item $\delta$ is the neuron delta
+    \item $x$ is the input value
+\end{itemize}
+
+% ==================================================
+\section{Implementation}
+
+The neural network was implemented in Python using the following classes:
+
+\begin{itemize}
+    \item \texttt{Neuron}
+    \item \texttt{Layer}
+    \item \texttt{NeuralNetwork}
+\end{itemize}
+
+The implementation supports:
+\begin{itemize}
+    \item Feedforward propagation
+    \item Backpropagation
+    \item Gradient descent training
+    \item Weight saving/loading
+\end{itemize}
+
+The following Python libraries were used:
+\begin{itemize}
+    \item math
+    \item random
+    \item csv
+\end{itemize}
+
+No deep learning framework was used.
+
+% ==================================================
+\section{XOR Dataset Experiment}
+
+The XOR dataset is a classical non-linear classification problem.
+
+\subsection{Dataset}
+
+\begin{center}
+\begin{tabular}{ccc}
+\toprule
+$x_1$ & $x_2$ & Output \\
+\midrule
+0 & 0 & 0 \\
+0 & 1 & 1 \\
+1 & 0 & 1 \\
+1 & 1 & 0 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{Training Parameters}
+
+\begin{itemize}
+    \item Learning rate: 0.5
+    \item Epochs: 10000
+    \item Architecture: 2-2-1
+\end{itemize}
+
+\subsection{Training Result}
+
+The training error decreased significantly during training:
+
+\begin{verbatim}
+Epoch 0 Error = 1.511978
+Epoch 9000 Error = 0.001426
+\end{verbatim}
+
+Final predictions:
+
+\begin{center}
+\begin{tabular}{ccc}
+\toprule
+Input & Expected & Predicted \\
+\midrule
+[0,0] & 0 & 0.016163 \\
+[0,1] & 1 & 0.981511 \\
+[1,0] & 1 & 0.981505 \\
+[1,1] & 0 & 0.017538 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The neural network successfully learned the XOR function.
+
+% ==================================================
+\section{Loan Dataset Experiment}
+
+\subsection{Dataset Description}
+
+The loan dataset contains:
+\begin{itemize}
+    \item Experience
+    \item Salary
+    \item Loan approval result
+\end{itemize}
+
+The objective is to predict whether a loan should be approved.
+
+\subsection{Data Normalization}
+
+Input values were normalized to improve training performance.
+
+\subsection{Training Parameters}
+
+\begin{itemize}
+    \item Learning rate: 0.5
+    \item Epochs: 10000
+    \item Architecture: 2-2-1
+\end{itemize}
+
+\subsection{Results}
+
+The error decreased during training:
+
+\begin{verbatim}
+Epoch 0 Error = 5.098626
+Epoch 9000 Error = 1.003566
+\end{verbatim}
+
+Sample predictions:
+
+\begin{center}
+\begin{tabular}{cccc}
+\toprule
+Experience & Salary & Expected & Predicted \\
+\midrule
+1.0 & 0.4 & 1 & 0.999965 \\
+0.333 & 0.4 & 0 & 0.000001 \\
+0.666 & 0.8 & 1 & 0.999996 \\
+0.333 & 0.8 & 0 & 0.999823 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The network achieved good classification performance, although some predictions were imperfect due to the small dataset size.
+
+% ==================================================
+\section{House Price Dataset Experiment}
+
+\subsection{Dataset Description}
+
+The dataset contains:
+\begin{itemize}
+    \item House size
+    \item House price
+\end{itemize}
+
+The objective is to predict house price from house size.
+
+\subsection{Normalization}
+
+Prices were normalized between 0 and 1 because the sigmoid activation function outputs values in this range.
+
+\subsection{Training Parameters}
+
+\begin{itemize}
+    \item Learning rate: 0.5
+    \item Epochs: 10000
+\end{itemize}
+
+\subsection{Results}
+
+Training error:
+
+\begin{verbatim}
+Epoch 0 Error = 1.400398
+Epoch 9000 Error = 0.009570
+\end{verbatim}
+
+Predictions:
+
+\begin{center}
+\begin{tabular}{ccc}
+\toprule
+Size & Real Price & Predicted Price \\
+\midrule
+10 & 55 & 60.36 \\
+20 & 80 & 73.03 \\
+40 & 100 & 100.96 \\
+60 & 120 & 126.10 \\
+80 & 150 & 140.78 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The neural network successfully approximated the relationship between house size and price.
+
+% ==================================================
+\section{Conclusion}
+
+In this labwork, a neural network was successfully implemented from scratch using Python.
+
+The implementation included:
+\begin{itemize}
+    \item Feedforward propagation
+    \item Backpropagation
+    \item Gradient descent optimization
+    \item CSV dataset processing
+\end{itemize}
+
+The neural network successfully learned:
+\begin{itemize}
+    \item XOR classification
+    \item Loan approval classification
+    \item House price prediction
+\end{itemize}
+
+The experiments demonstrated that backpropagation can effectively optimize weights and reduce prediction error.
+
+\end{document}
