@@ -1,7 +1,6 @@
 import random
 import math
 
-
 # =========================
 # Activation Functions
 # =========================
@@ -19,11 +18,8 @@ def sigmoid_derivative(output):
 # =========================
 
 class Neuron:
-
     def __init__(self, number_inputs):
-
         self.weights = []
-
         for i in range(number_inputs):
             self.weights.append(random.uniform(-1, 1))
 
@@ -33,51 +29,38 @@ class Neuron:
         self.delta = 0
 
     def forward(self, inputs):
-
         total = 0
-
         for i in range(len(inputs)):
             total += inputs[i] * self.weights[i]
 
         total += self.bias
-
         self.output = sigmoid(total)
-
         return self.output
-
 
 # =========================
 # Layer Class
 # =========================
 
 class Layer:
-
     def __init__(self, number_neurons, number_inputs):
-
         self.neurons = []
-
         for i in range(number_neurons):
             neuron = Neuron(number_inputs)
             self.neurons.append(neuron)
 
     def forward(self, inputs):
-
         outputs = []
-
         for neuron in self.neurons:
             outputs.append(neuron.forward(inputs))
 
         return outputs
-
 
 # =========================
 # Neural Network Class
 # =========================
 
 class NeuralNetwork:
-
     def __init__(self, architecture_file):
-
         self.layers = []
 
         file = open(architecture_file, "r")

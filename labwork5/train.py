@@ -27,12 +27,7 @@ xor_outputs = [
 
 network = NeuralNetwork("network.txt")
 
-network.train(
-    xor_inputs,
-    xor_outputs,
-    learning_rate=0.5,
-    epochs=10000
-)
+network.train(xor_inputs, xor_outputs, learning_rate=0.5, epochs=10000 )
 
 print("\nXOR Results:\n")
 
@@ -72,7 +67,6 @@ for row in csv_reader:
     loan = float(row[2])
 
     loan_inputs.append([experience, salary])
-
     loan_outputs.append([loan])
 
 file.close()
@@ -90,9 +84,7 @@ print("\nLoan Dataset Results:\n")
 
 for i in range(len(loan_inputs)):
 
-    prediction = network.feedforward(
-        loan_inputs[i]
-    )[0]
+    prediction = network.feedforward(loan_inputs[i])[0]
 
     print(
         f"Input: {loan_inputs[i]} "
@@ -124,7 +116,6 @@ for row in csv_reader:
     price = float(row[1]) / 150
 
     house_inputs.append([size])
-
     house_outputs.append([price])
 
 file.close()
@@ -146,6 +137,8 @@ for i in range(len(house_inputs)):
         house_inputs[i]
     )[0]
 
+
+    # 80 and 150 because they are the maximum values of the Size and Price columns. In max normalization, every value in a column is divided by the same maximum value so the relative relationships between data points are preserved while scaling all values into the range 0–1.
     predicted_price = prediction * 150
 
     real_size = house_inputs[i][0] * 80

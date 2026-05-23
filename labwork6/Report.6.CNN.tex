@@ -1,0 +1,252 @@
+\documentclass[12pt]{article}
+
+\usepackage[a4paper, margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{listings}
+\usepackage{xcolor}
+
+\title{Labwork 6: Convolutional Neural Network}
+\author{Nguyen Xuan Vinh}
+\date{2026}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+
+Convolutional Neural Networks (CNNs) are one of the most important deep learning architectures for image processing and computer vision tasks. CNNs are widely used in image classification, object detection, and image recognition.
+
+In this labwork, a VGG19-style Convolutional Neural Network was implemented manually using the PyTorch deep learning framework. The network was trained from scratch without using pretrained weights.
+
+The objective of this project is image classification using the CIFAR-10 dataset.
+
+\section{Problem Description}
+
+\begin{itemize}
+    \item Input: RGB image
+    \item Output: Predicted image class
+    \item Task: Image classification
+\end{itemize}
+
+The network receives an image as input and predicts one of the ten CIFAR-10 classes.
+
+\section{Dataset}
+
+The CIFAR-10 dataset was used in this experiment.
+
+\subsection{Dataset Information}
+
+\begin{itemize}
+    \item Dataset name: CIFAR-10
+    \item Number of classes: 10
+    \item Image size: $32 \times 32$
+    \item Color channels: 3 (RGB)
+\end{itemize}
+
+The CIFAR-10 dataset contains the following classes:
+
+\begin{itemize}
+    \item Airplane
+    \item Automobile
+    \item Bird
+    \item Cat
+    \item Deer
+    \item Dog
+    \item Frog
+    \item Horse
+    \item Ship
+    \item Truck
+\end{itemize}
+
+For faster training on CPU, a subset of 15,000 training images was used.
+
+\section{Network Architecture}
+
+A VGG19-style CNN architecture was manually implemented using PyTorch.
+
+The architecture consists of:
+
+\begin{itemize}
+    \item Convolution layers
+    \item ReLU activation functions
+    \item MaxPooling layers
+    \item Fully connected layers
+    \item Dropout layer
+\end{itemize}
+
+\subsection{Architecture Design}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{ccc}
+\toprule
+Layer Block & Operation & Output Channels \\
+\midrule
+Block 1 & Conv + ReLU + Conv + ReLU + MaxPool & 64 \\
+Block 2 & Conv + ReLU + Conv + ReLU + MaxPool & 128 \\
+Block 3 & Conv + ReLU + Conv + ReLU + MaxPool & 256 \\
+Block 4 & Conv + ReLU + Conv + ReLU + MaxPool & 512 \\
+Classifier & Fully Connected Layers & 10 Classes \\
+\bottomrule
+\end{tabular}
+\caption{VGG19-style CNN Architecture}
+\end{table}
+
+\section{Implementation}
+
+The model was implemented using the PyTorch framework.
+
+\subsection{Training Parameters}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{cc}
+\toprule
+Parameter & Value \\
+\midrule
+Batch Size & 32 \\
+Epochs & 5 \\
+Learning Rate & 0.0005 \\
+Optimizer & Adam \\
+Loss Function & CrossEntropyLoss \\
+Dataset & CIFAR-10 \\
+\bottomrule
+\end{tabular}
+\caption{Training Parameters}
+\end{table}
+
+\subsection{Data Preprocessing}
+
+The following preprocessing operations were applied:
+
+\begin{itemize}
+    \item Convert image to tensor
+    \item Normalize pixel values
+\end{itemize}
+
+Normalization used:
+
+\[
+(x - 0.5) / 0.5
+\]
+
+\section{Training Results}
+
+The training loss decreased during the training process, showing that the network successfully learned image features.
+
+\subsection{Training Loss}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{cc}
+\toprule
+Epoch & Loss \\
+\midrule
+1 & 2.1123 \\
+2 & 1.7249 \\
+3 & 1.5315 \\
+4 & 1.3914 \\
+5 & 1.2697 \\
+\bottomrule
+\end{tabular}
+\caption{Training Loss per Epoch}
+\end{table}
+
+\textbf{Insert training screenshot here.}
+
+\section{Evaluation Metrics}
+
+The trained model was evaluated using several classification metrics.
+
+\subsection{Accuracy}
+
+Accuracy measures the proportion of correctly classified samples.
+
+\[
+Accuracy = \frac{TP + TN}{TP + TN + FP + FN}
+\]
+
+\subsection{Precision}
+
+Precision measures the proportion of correctly predicted positive samples.
+
+\[
+Precision = \frac{TP}{TP + FP}
+\]
+
+\subsection{Recall}
+
+Recall measures the proportion of actual positive samples correctly identified.
+
+\[
+Recall = \frac{TP}{TP + FN}
+\]
+
+\subsection{F1-score}
+
+F1-score is the harmonic mean of precision and recall.
+
+\[
+F1 = 2 \times \frac{Precision \times Recall}{Precision + Recall}
+\]
+
+\section{Experimental Results}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{cc}
+\toprule
+Metric & Value \\
+\midrule
+Accuracy & 0.5507 \\
+Precision & 0.5555 \\
+Recall & 0.5507 \\
+F1-score & 0.5409 \\
+\bottomrule
+\end{tabular}
+\caption{Classification Results}
+\end{table}
+
+The model achieved approximately 55\% classification accuracy on the CIFAR-10 test dataset.
+
+\textbf{Insert testing result screenshot here.}
+
+\section{Discussion}
+
+The experimental results show that the CNN model successfully learned useful image features from the CIFAR-10 dataset.
+
+The training loss consistently decreased from 2.1123 to 1.2697 over five epochs, indicating that the model converged during training.
+
+Although the implemented network is smaller than the original VGG19 architecture, it still follows the VGG design principle using stacked convolutional layers and pooling layers.
+
+The performance could be further improved by:
+
+\begin{itemize}
+    \item Increasing training epochs
+    \item Using GPU acceleration
+    \item Training on the full CIFAR-10 dataset
+    \item Applying data augmentation techniques
+\end{itemize}
+
+\section{Conclusion}
+
+In this labwork, a VGG19-style Convolutional Neural Network was implemented manually using PyTorch.
+
+The model was trained from scratch without using pretrained weights and evaluated on the CIFAR-10 dataset.
+
+Experimental results demonstrated that the CNN model can successfully perform image classification with acceptable performance.
+
+The final model achieved:
+
+\begin{itemize}
+    \item Accuracy: 55.07\%
+    \item Precision: 55.55\%
+    \item Recall: 55.07\%
+    \item F1-score: 54.09\%
+\end{itemize}
+
+\end{document}
